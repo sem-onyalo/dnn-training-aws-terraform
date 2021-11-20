@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e # exit when any command fails
+
+gitrepo="dnn-training-model"
+giturl="https://github.com/sem-onyalo"
+runcmd="python3 main.py"
+
+function log()
+{
+  echo [$(date)] "$1"
+}
+
+while getopts "r:u:c:" args; do
+  case $args in
+    r) gitrepo=$OPTARG;;
+    u) giturl=$OPTARG;;
+    c) runcmd=$OPTARG;;
+  esac
+done
+
+log 'Creating bootstrap yaml file'
+sed -e "s|{{git-repo}}|$gitrepo|g" \
+    -e "s|{{git-url}}|$giturl|g" \
+    -e "s|{{run-cmd}}|$runcmd|g" \
+    bootstrap-template.yml > bootstrap.yml
+
+log 'Validating infrastructure scripts'
+terraform validate
+
+log 'Deploying infrastructure'
+terraform apply -auto-approve

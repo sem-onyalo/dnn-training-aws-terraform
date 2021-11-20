@@ -1,0 +1,16 @@
+#cloud-config
+
+runcmd:
+ - apt update
+ - apt install python3-pip -y
+ - apt install python3-venv -y
+ - "git clone {{git-url}}/{{git-repo}}.git /run/{{git-repo}}"
+ - chmod u+x /run/{{git-repo}}/run
+ - /run/{{git-repo}}/run -w '/run/{{git-repo}}' -r '{{run-cmd}}'
+
+power_state:
+  delay: "+90"
+  mode: halt
+  message: DNN Training Shutdown
+  timeout: 120
+  condition: True
