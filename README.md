@@ -1,4 +1,4 @@
-# AWS Terraform for Deep Neural Network Training
+# AWS Terraform for GAN Deep Learning Training
 
 This code is designed to launch an EC2 instance, clone another training repository on that instance and train a DNN model.
 
@@ -16,16 +16,16 @@ The training can be launched from a bash terminal using the command below.
 ./run
 ```
 
-You can specify different training parameters for the training code like the command below
+You'll most likely need to specify a specific training command, for example parameters for the training code like the command below.
 
 ```
-./run -c 'python3 main.py -b 256 -e 5'
+./run -c 'python3 main.py --train' -f 'python3 app.py'
 ``` 
 
-or you can specify a different repository altogether, like the command below
+You can specify a different repository, like the command below
 
 ```
-./run -u 'https://github.com/your-username' -r 'your-dnn-training-repo'
+./run -a 'https://github.com/your-username' -b 'your-training-repo' -d 'https://github.com/your-username' -b 'your-monitoring-repo'
 ```
 
-If you specify your own repository it will need to include a bash script called `run`. See the [default training repository](https://github.com/sem-onyalo/dnn-training-model) for more details.
+If you specify your own repository it will need to include a bash script called `run`. See the [default training repository](https://github.com/sem-onyalo/gan-training-model) and the accompanying [automated training documentation](https://github.com/sem-onyalo/gan-training/doc) for more details.
