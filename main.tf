@@ -22,6 +22,25 @@ data "template_file" "user_data_monitoring" {
   template = file("bootstrap-monitoring.yml")
 }
 
+resource "aws_s3_bucket" "training_storage" {
+  bucket = "gan-training-storage"
+  acl    = "private"
+
+  tags = {
+    "Name"    = "GanTrainingStorage"
+    "Purpose" = "GanTrainingJob"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "training_storage" {
+  bucket = aws_s3_bucket.training_storage.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 resource "aws_instance" "training_server" {
   ami             = "ami-0e5989519d28fb3cc"
   instance_type   = "p3.2xlarge"
@@ -48,5 +67,5 @@ resource "aws_instance" "monitoring_server" {
 }
 
 output "monitoring_server_ip" {
-  value = "${aws_instance.monitoring_server.public_ip}"
+  value = aws_instance.monitoring_server.public_ip
 }
