@@ -2,28 +2,41 @@
 
 set -e # exit when any command fails
 
-gitrepo="dnn-training-model"
-giturl="https://github.com/sem-onyalo"
-runcmd="python3 main.py"
+traingiturl="https://github.com/sem-onyalo"
+traingitrepo="gan-training-model"
+trainruncmd="python3 main.py"
+
+monitorgiturl="https://github.com/sem-onyalo"
+monitorgitrepo="gan-training-monitor-flask"
+monitorruncmd="python3 app.py"
 
 function log()
 {
   echo [$(date)] "$1"
 }
 
-while getopts "r:u:c:" args; do
+while getopts "tr:tu:tc:mr:mu:mc:" args; do
   case $args in
-    r) gitrepo=$OPTARG;;
-    u) giturl=$OPTARG;;
-    c) runcmd=$OPTARG;;
+    tr) traingitrepo=$OPTARG;;
+    tu) traingiturl=$OPTARG;;
+    tc) trainruncmd=$OPTARG;;
+    mr) monitorgitrepo=$OPTARG;;
+    mu) monitorgiturl=$OPTARG;;
+    mc) monitorruncmd=$OPTARG;;
   esac
 done
 
-log 'Creating bootstrap yaml file'
-sed -e "s|{{git-repo}}|$gitrepo|g" \
-    -e "s|{{git-url}}|$giturl|g" \
-    -e "s|{{run-cmd}}|$runcmd|g" \
-    bootstrap-template.yml > bootstrap.yml
+log 'Creating training bootstrap yaml file'
+sed -e "s|{{git-repo}}|$traingitrepo|g" \
+    -e "s|{{git-url}}|$traingiturl|g" \
+    -e "s|{{run-cmd}}|$trainruncmd|g" \
+    bootstrap-template.yml > bootstrap-training.yml
+
+log 'Creating monitoring bootstrap yaml file'
+sed -e "s|{{git-repo}}|$monitorgitrepo|g" \
+    -e "s|{{git-url}}|$monitorgiturl|g" \
+    -e "s|{{run-cmd}}|$monitorruncmd|g" \
+    bootstrap-template.yml > bootstrap-monitoring.yml
 
 log 'Validating infrastructure scripts'
 terraform validate

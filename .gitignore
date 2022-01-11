@@ -36,5 +36,6 @@ terraform.rc
 # Key pair files
 *.pem
 
-# Generated bootstrap yaml file
-bootstrap.yml
+# Generated bootstrap yaml files
+bootstrap-monitoring.yml
+bootstrap-training.yml

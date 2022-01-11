@@ -35,3 +35,22 @@ resource "aws_security_group" "allow_out" {
     }
   ]
 }
+
+resource "aws_security_group" "allow_http_dev" {
+  name        = "allow-http-dev"
+  description = "Allow HTTP inbound traffic - dev"
+
+  ingress = [
+    {
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = ""
+      from_port        = 8080
+      ipv6_cidr_blocks = ["::/0"]
+      prefix_list_ids  = []
+      protocol         = "tcp"
+      security_groups  = []
+      self             = false
+      to_port          = 8080
+    }
+  ]
+}
