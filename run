@@ -15,14 +15,14 @@ function log()
   echo [$(date)] "$1"
 }
 
-while getopts "tr:tu:tc:mr:mu:mc:" args; do
+while getopts "a:b:c:d:e:f:" args; do
   case $args in
-    tr) traingitrepo=$OPTARG;;
-    tu) traingiturl=$OPTARG;;
-    tc) trainruncmd=$OPTARG;;
-    mr) monitorgitrepo=$OPTARG;;
-    mu) monitorgiturl=$OPTARG;;
-    mc) monitorruncmd=$OPTARG;;
+    a) traingitrepo=$OPTARG;;
+    b) traingiturl=$OPTARG;;
+    c) trainruncmd=$OPTARG;;
+    d) monitorgitrepo=$OPTARG;;
+    e) monitorgiturl=$OPTARG;;
+    f) monitorruncmd=$OPTARG;;
   esac
 done
 
