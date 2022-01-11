@@ -28,4 +28,4 @@ You can specify a different repository, like the command below
 ./run -a 'https://github.com/your-username' -b 'your-training-repo' -d 'https://github.com/your-username' -b 'your-monitoring-repo'
 ```
 
-If you specify your own repository it will need to include a bash script called `run`. See the [default training repository](https://github.com/sem-onyalo/gan-training-model) and the accompanying [automated training documentation](https://github.com/sem-onyalo/gan-training/doc) for more details.
+If you specify your own repository it will need to include a bash script called `run`. See the [default training repository](https://github.com/sem-onyalo/gan-training-model) and the accompanying [automated training documentation](https://github.com/sem-onyalo/gan-training-doc) for more details.
