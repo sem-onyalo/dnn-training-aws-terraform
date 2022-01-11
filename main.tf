@@ -49,7 +49,7 @@ resource "aws_s3_bucket_public_access_block" "training_storage" {
 resource "aws_instance" "training_server" {
   ami                  = "ami-0e5989519d28fb3cc"
   instance_type        = "p3.2xlarge"
-  iam_instance_profile = aws_iam_instance_profile.training_storage_access_profile
+  iam_instance_profile = aws_iam_instance_profile.training_storage_access_profile.name
   key_name             = "training-server-key"
   security_groups      = ["${aws_security_group.allow_ssh.name}", "${aws_security_group.allow_out.name}"]
   user_data            = data.template_file.user_data_training.rendered
@@ -63,7 +63,7 @@ resource "aws_instance" "training_server" {
 resource "aws_instance" "monitoring_server" {
   ami                  = "ami-00f7e5c52c0f43726"
   instance_type        = "t2.micro"
-  iam_instance_profile = aws_iam_instance_profile.training_storage_access_profile
+  iam_instance_profile = aws_iam_instance_profile.training_storage_access_profile.name
   security_groups      = ["${aws_security_group.allow_http_dev.name}", "${aws_security_group.allow_out.name}"]
   user_data            = data.template_file.user_data_monitoring.rendered
 
