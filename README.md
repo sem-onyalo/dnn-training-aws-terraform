@@ -1,6 +1,6 @@
 # AWS Terraform for GAN Deep Learning Training
 
-This code is designed to launch an EC2 instance, clone another training repository on that instance and train a DNN model.
+This code is designed to launch an EC2 instance, clone another training repository on that instance and train a GAN model.
 
 The default key-pair for the EC2 instance that gets launched is called `training-server-key`. If you plan to SSH into the launched EC2 instance you'll need to create a key-pair with that name in AWS (see [main.tf](./main.tf)).
 
